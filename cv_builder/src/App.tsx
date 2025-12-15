@@ -53,7 +53,7 @@ const initialCv: CV = {
     {
       dates: '2022-06 - 2023-09',
       title: 'Analyst Programmer',
-      company: 'Varmeego Limited, Hong Kong, Hong Kong',
+      company: 'Varmeego Limited, Hong Kong, HKSAR',
       bullets: [
         'Revamp Retail Apps (React Native) with over 100K downloads while maintaining the performance of existing version (Native Java)'
       ]
@@ -81,7 +81,7 @@ const initialCv: CV = {
   ],
   education: [
     {
-      date: '2025-01',
+      date: '2022-09 - 2025-01',
       title: 'Master of Science: Information Technology',
       school: 'The Hong Kong Polytechnic University - Hung Hom',
       subs: [
