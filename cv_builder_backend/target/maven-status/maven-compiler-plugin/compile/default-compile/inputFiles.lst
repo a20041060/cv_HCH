@@ -1,0 +1,14 @@
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\security\JwtAuthFilter.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\user\UserRepository.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\security\SecurityConfig.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\user\dto\ProfileUpdateRequest.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\user\UserController.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\CvBuilderBackendApplication.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\security\JwtService.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\user\dto\ProfileResponse.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\user\User.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\auth\dto\LoginRequest.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\auth\AuthController.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\auth\dto\AuthResponse.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\auth\dto\RegisterRequest.java
+C:\Users\charles.ho\Documents\cv_HCH\cv_builder_backend\src\main\java\com\hch\cvbuilder\security\UserDetailsImpl.java
