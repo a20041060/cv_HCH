@@ -21,7 +21,7 @@ export const cv: CV = {
   contact: [
     { label: 'Address', value: 'Kwai Chung, NT' },
     { label: 'Phone', value: '852-61894412' },
-    { label: 'E-mail', value: 'c20041060@gmail.com' },
+    { label: 'E-mail', value: 'a20041060@gmail.com' },
     { label: 'LinkedIn', value: 'www.linkedin.com/in/chi-hung-charles-ho-14a281160' }
   ],
   skills: [
@@ -46,7 +46,7 @@ export const cv: CV = {
   summary: {
     expectedSalary: 'Expected Salary: $ 60,000/Month',
     text:
-      'Familiar with ReactJS, React Native & NodeJS, hands-on experience in Python & Java Spring, eager to learn new knowledge, adapting technology fast. Recently practicing containerization and apps migration. Feel free to see my GitHub: https://github.com/c20041060'
+      'Familiar with ReactJS, React Native & NodeJS, hands-on experience in Python & Java Spring, eager to learn new knowledge, adapting technology fast. Recently practicing containerization and apps migration. Feel free to see my GitHub: https://github.com/a20041060'
   },
   jobs: [
     {
