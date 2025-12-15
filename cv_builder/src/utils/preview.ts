@@ -1,16 +1,17 @@
-import { CV } from '../types'
+import { CV, StyleSettings } from '../types'
 
-export function previewCss(): string {
+export function previewCss(style?: StyleSettings): string {
+  const s = style || { baseFontPx: 15, lineHeight: 1.75, contentPadding: 32, sectionTitleSize: 22, sidebarWidth: 300, pagePadding: 0 }
   return `
-  :root { --blue:#0f4b79; --border:#d8e0ea; --text:#1b1f23; --muted:#58616a; --white:#ffffff; }
+  :root { --blue:#0f4b79; --border:#d8e0ea; --text:#1b1f23; --muted:#58616a; --white:#ffffff; --fs-base:${s.baseFontPx}px; --lh-body:${s.lineHeight}; --content-pad:${s.contentPadding}px; --fs-section:${s.sectionTitleSize}px; --sidebar-w:${s.sidebarWidth}px; --page-pad:${s.pagePadding}px; }
   *{box-sizing:border-box}
   html,body{min-height:100%}
-  body{margin:0;overflow:auto;background:#f6f8fb;font-family:Inter,Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
-  .page{margin:0;background:#fff;width:100%;min-height:100vh;box-shadow:0 6px 24px rgba(0,0,0,.08)}
-  .page-inner{display:grid;grid-template-columns:300px 1fr}
+  body{margin:0;overflow:auto;background:#f6f8fb;font-family:Inter,Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;font-size:var(--fs-base)}
+  .page{margin:0;background:#fff;width:210mm;height:297mm;padding:var(--page-pad, 0);box-shadow:0 6px 24px rgba(0,0,0,.08);overflow:hidden;box-sizing:border-box}
+  .page-inner{display:grid;grid-template-columns:var(--sidebar-w) 1fr;transform-origin:top left;transform:scale(var(--preview-scale,1));width:calc(100% / var(--preview-scale,1));height:calc(100% / var(--preview-scale,1))}
   .sidebar{background:var(--blue);color:#fff;padding:28px 22px}
-  .identity .name{font-size:30px;font-weight:800;line-height:1.25}
-  .identity .title{margin-top:6px;font-size:15px;opacity:.9}
+  .identity .name{font-size:calc(var(--fs-base) + 15px);font-weight:800;line-height:1.25}
+  .identity .title{margin-top:6px;font-size:calc(var(--fs-base) + 0px);opacity:.9}
   .sidebar-section{margin-top:24px}
   .sidebar-title{font-weight:700;letter-spacing:.2px;border-bottom:2px solid rgba(255,255,255,.3);padding-bottom:6px;margin-bottom:12px}
   .contact-item{margin:8px 0}
@@ -21,37 +22,37 @@ export function previewCss(): string {
   .bar-track{width:100%;height:8px;background:rgba(255,255,255,.25);border-radius:999px}
   .bar-fill{height:100%;background:#6ec1ff;border-radius:999px}
   .software-item{display:flex;justify-content:space-between;font-size:13px;margin:6px 0}
-  .content{padding:32px 32px}
+  .content{padding:var(--content-pad) var(--content-pad)}
   .expected-salary{font-weight:700;margin-bottom:10px}
-  .summary-text{font-size:15px;color:var(--muted);line-height:1.75}
-  .section-title{color:var(--blue);font-size:22px;font-weight:800;border-bottom:2px solid var(--border);padding-bottom:10px;margin:28px 0 18px}
+  .summary-text{font-size:calc(var(--fs-base));color:var(--muted);line-height:var(--lh-body)}
+  .section-title{color:var(--blue);font-size:var(--fs-section);font-weight:800;border-bottom:2px solid var(--border);padding-bottom:10px;margin:28px 0 18px}
   .job{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
-  .job-dates{color:var(--muted);font-size:14px}
+  .job-dates{color:var(--muted);font-size:calc(var(--fs-base) - 1px)}
   .job-title{font-weight:700}
-  .job-company{font-size:15px;color:var(--muted);margin-bottom:10px}
+  .job-company{font-size:calc(var(--fs-base));color:var(--muted);margin-bottom:10px}
   .job ul{margin:0;padding-left:18px}
-  .job li{margin:8px 0;line-height:1.7}
+  .job li{margin:8px 0;line-height:var(--lh-body)}
   .edu{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0}
-  .edu-date{color:var(--muted);font-size:14px}
+  .edu-date{color:var(--muted);font-size:calc(var(--fs-base) - 1px)}
   .edu-title{font-weight:700}
-  .edu-school{font-size:15px;color:var(--muted);margin-bottom:8px}
+  .edu-school{font-size:calc(var(--fs-base));color:var(--muted);margin-bottom:8px}
   @page{size:A4;margin:0}
   @media print{
     body{background:#fff}
-    .page{width:210mm;height:297mm;padding:0;margin:0;box-shadow:none;min-height:auto;box-sizing:border-box;overflow:hidden}
+    .page{width:210mm;height:297mm;padding:var(--page-pad, 0);margin:0;box-shadow:none;box-sizing:border-box;overflow:hidden}
     .page-inner{transform-origin:top left;transform:scale(var(--print-scale,1));width:calc(100% / var(--print-scale,1));height:calc(100% / var(--print-scale,1))}
-    .identity .name{font-size:30px}
-    .identity .title{font-size:15px}
-    .content{padding:32px 30px}
-    .summary-text{font-size:15px;line-height:1.75}
-    .section-title{font-size:22px;margin:28px 0 18px;padding-bottom:10px}
+    .identity .name{font-size:calc(var(--fs-base) + 15px)}
+    .identity .title{font-size:calc(var(--fs-base) + 0px)}
+    .content{padding:var(--content-pad) calc(var(--content-pad) - 2px)}
+    .summary-text{font-size:calc(var(--fs-base));line-height:var(--lh-body)}
+    .section-title{font-size:var(--fs-section);margin:28px 0 18px;padding-bottom:10px}
     .job{grid-template-columns:160px 1fr;gap:16px;padding:14px 0}
-    .job-dates{font-size:14px}
-    .job-company{font-size:15px;margin-bottom:10px}
-    .job li{margin:8px 0;line-height:1.7}
+    .job-dates{font-size:calc(var(--fs-base) - 1px)}
+    .job-company{font-size:calc(var(--fs-base));margin-bottom:10px}
+    .job li{margin:8px 0;line-height:var(--lh-body)}
     .edu{grid-template-columns:120px 1fr;gap:16px;padding:14px 0}
-    .edu-date{font-size:14px}
-    .edu-school{font-size:15px;margin-bottom:8px}
+    .edu-date{font-size:calc(var(--fs-base) - 1px)}
+    .edu-school{font-size:calc(var(--fs-base));margin-bottom:8px}
     .page,.page-inner,.sidebar,.content,.job,.edu{page-break-inside:avoid}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }

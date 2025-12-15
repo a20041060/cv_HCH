@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { CV } from './types'
+import { CV, StyleSettings } from './types'
 import Editor from './components/Editor'
 import PreviewPane from './components/PreviewPane'
 
@@ -96,6 +96,7 @@ const initialCv: CV = {
 
 function App() {
   const [cv, setCv] = useState<CV>(initialCv)
+  const [style, setStyle] = useState<StyleSettings>({ baseFontPx: 15, lineHeight: 1.75, contentPadding: 32, sectionTitleSize: 22, sidebarWidth: 300, pagePadding: 0 })
   const jsonRef = useRef<HTMLDivElement | null>(null)
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
 
@@ -156,18 +157,24 @@ function App() {
     setTimeout(() => page.style.removeProperty('--print-scale'), 500)
   }
 
+  const onStyleChange = (next: Partial<StyleSettings>) => {
+    setStyle(prev => ({ ...prev, ...next }))
+  }
+
   return (
     <div className="app">
       <Editor
         cv={cv}
         update={update}
+        style={style}
+        onStyleChange={onStyleChange}
         onDownloadJson={downloadJson}
         onCopyJson={copyJson}
         onPrint={handlePrint}
         onLoadJson={loadJson}
       />
 
-      <PreviewPane ref={iframeRef} cv={cv} />
+      <PreviewPane ref={iframeRef} cv={cv} style={style} />
     </div>
   )
 }

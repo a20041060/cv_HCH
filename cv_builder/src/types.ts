@@ -12,3 +12,12 @@ export type CV = {
   jobs: Job[]
   education: EducationEntry[]
 }
+
+export type StyleSettings = {
+  baseFontPx: number
+  lineHeight: number
+  contentPadding: number
+  sectionTitleSize: number
+  sidebarWidth: number
+  pagePadding: number
+}

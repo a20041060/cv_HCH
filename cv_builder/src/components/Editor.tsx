@@ -1,22 +1,26 @@
 import React from 'react'
-import { CV } from '../types'
+import { CV, StyleSettings } from '../types'
 import IdentityEditor from './sections/IdentityEditor'
 import ContactEditor from './sections/ContactEditor'
 import SkillsEditor from './sections/SkillsEditor'
 import SoftwareEditor from './sections/SoftwareEditor'
 import WorkHistoryEditor from './sections/WorkHistoryEditor'
 import EducationEditor from './sections/EducationEditor'
+import StyleControls from './sections/StyleControls'
 
-export default function Editor({ cv, update, onDownloadJson, onCopyJson, onPrint, onLoadJson }: {
+export default function Editor({ cv, update, style, onStyleChange, onDownloadJson, onCopyJson, onPrint, onLoadJson }: {
   cv: CV;
   update: (path: (string | number)[], value: unknown) => void;
+  style: StyleSettings;
+  onStyleChange: (next: Partial<StyleSettings>) => void;
   onDownloadJson: () => void;
   onCopyJson: () => void;
   onPrint: () => void;
   onLoadJson: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className="panel form">
+    <div className="panel form" style={{ overflowY: 'auto' }}>
+      <StyleControls style={style} onChange={onStyleChange} />
       <IdentityEditor cv={cv} update={update} />
       <ContactEditor cv={cv} update={update} />
       <SkillsEditor cv={cv} update={update} />
