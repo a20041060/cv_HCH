@@ -1,6 +1,7 @@
 import React from 'react'
+import { CV } from '../../data/cv'
 
-function Job({ job }) {
+function Job({ job }: { job: CV['jobs'][number] }) {
   return (
     <div className="job">
       <div className="job-dates">{job.dates}</div>

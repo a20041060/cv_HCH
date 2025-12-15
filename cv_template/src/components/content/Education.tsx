@@ -1,6 +1,7 @@
 import React from 'react'
+import { CV } from '../../data/cv'
 
-function Education({ entries }) {
+function Education({ entries }: { entries: CV['education'] }) {
   return (
     <section className="education">
       <h2 className="section-title">Education</h2>

@@ -1,8 +1,14 @@
 import React from 'react'
-import Sidebar from './Sidebar.jsx'
-import Content from './content/Content.jsx'
+import Sidebar from './Sidebar'
+import Content from './content/Content'
+import { CV } from '../data/cv'
 
-function Page({ innerRef, data }) {
+type Props = {
+  innerRef: React.RefObject<HTMLDivElement>
+  data: CV
+}
+
+function Page({ innerRef, data }: Props) {
   return (
     <div className="page" ref={innerRef}>
       <div className="page-inner">

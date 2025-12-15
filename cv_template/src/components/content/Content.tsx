@@ -1,9 +1,10 @@
 import React from 'react'
-import Summary from './Summary.jsx'
-import WorkHistory from './WorkHistory.jsx'
-import Education from './Education.jsx'
+import Summary from './Summary'
+import WorkHistory from './WorkHistory'
+import Education from './Education'
+import { CV } from '../../data/cv'
 
-function Content({ data }) {
+function Content({ data }: { data: CV }) {
   return (
     <main className="content">
       <Summary summary={data.summary} />

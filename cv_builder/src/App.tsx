@@ -1,6 +1,20 @@
 import React, { useState, useRef } from 'react'
 
-const initialCv = {
+type BarItem = { label: string; level: number }
+type ContactItem = { label: string; value: string }
+type Job = { dates: string; title: string; company: string; bullets: string[] }
+type EducationEntry = { date: string; title: string; school: string; subs: string[] }
+type CV = {
+  identity: { nameLines: [string, string]; title: string }
+  contact: ContactItem[]
+  skills: BarItem[]
+  software: BarItem[]
+  summary: { expectedSalary: string; text: string }
+  jobs: Job[]
+  education: EducationEntry[]
+}
+
+const initialCv: CV = {
   identity: {
     nameLines: ['Chi Hung,', 'Charles HO'],
     title: 'Assistant System Manager'
@@ -89,7 +103,7 @@ const initialCv = {
   ]
 }
 
-function Field({ label, value, onChange, type = 'text' }) {
+function Field({ label, value, onChange, type = 'text' }: { label: string; value: string; onChange: (v: string) => void; type?: 'text' | 'textarea' }) {
   return (
     <div className="input">
       <label>{label}</label>
@@ -102,7 +116,7 @@ function Field({ label, value, onChange, type = 'text' }) {
   )
 }
 
-function ArrayEditor({ title, items, renderItem, onAdd }) {
+function ArrayEditor({ title, items, renderItem, onAdd }: { title: string; items: any[]; renderItem: (item: any, i: number) => React.ReactNode; onAdd: () => void }) {
   return (
     <div className="items">
       <h2>{title}</h2>
@@ -113,16 +127,16 @@ function ArrayEditor({ title, items, renderItem, onAdd }) {
 }
 
 function App() {
-  const [cv, setCv] = useState(initialCv)
-  const jsonRef = useRef(null)
-  const iframeRef = useRef(null)
+  const [cv, setCv] = useState<CV>(initialCv)
+  const jsonRef = useRef<HTMLDivElement | null>(null)
+  const iframeRef = useRef<HTMLIFrameElement | null>(null)
 
-  const update = (path, value) => {
+  const update = (path: (string | number)[], value: unknown) => {
     setCv((prev) => {
       const draft = structuredClone(prev)
-      let ref = draft
-      for (let i = 0; i < path.length - 1; i++) ref = ref[path[i]]
-      ref[path[path.length - 1]] = value
+      let ref: any = draft
+      for (let i = 0; i < path.length - 1; i++) ref = ref[path[i] as any]
+      ref[path[path.length - 1] as any] = value as any
       return draft
     })
   }
@@ -140,13 +154,13 @@ function App() {
     navigator.clipboard.writeText(JSON.stringify(cv, null, 2))
   }
 
-  const loadJson = (evt) => {
+  const loadJson = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0]
     if (!file) return
     const reader = new FileReader()
     reader.onload = () => {
       try {
-        const data = JSON.parse(reader.result)
+        const data = JSON.parse(String(reader.result)) as CV
         setCv(data)
       } catch {}
     }
@@ -154,12 +168,13 @@ function App() {
   }
 
   const handlePrint = () => {
-    const mmToPx = (mm) => mm * 3.78
+    const mmToPx = (mm: number) => mm * 3.78
     const win = iframeRef.current?.contentWindow
     const doc = win?.document
     if (!doc) return
-    const page = doc.querySelector('.page')
-    const inner = doc.querySelector('.page-inner') || page
+    const page = doc.querySelector('.page') as HTMLElement | null
+    const inner = (doc.querySelector('.page-inner') as HTMLElement | null) || page
+    if (!page || !inner) return
     const rect = inner.getBoundingClientRect()
     const h = inner.scrollHeight
     const targetWidthPx = mmToPx(210)
@@ -168,8 +183,8 @@ function App() {
     const ratioH = targetHeightPx / h
     const scale = Math.min(1, ratioW, ratioH)
     page.style.setProperty('--print-scale', String(scale))
-    win.focus()
-    win.print()
+    win!.focus()
+    win!.print()
     setTimeout(() => page.style.removeProperty('--print-scale'), 500)
   }
 
@@ -187,7 +202,7 @@ function App() {
           title="Contact"
           items={cv.contact}
           onAdd={() => update(['contact'], [...cv.contact, { label: '', value: '' }])}
-          renderItem={(it, i) => (
+          renderItem={(it: ContactItem, i: number) => (
             <div className="item" key={i}>
               <div className="row">
                 <Field label="Label" value={it.label} onChange={(v) => {
@@ -210,7 +225,7 @@ function App() {
           title="Skills"
           items={cv.skills}
           onAdd={() => update(['skills'], [...cv.skills, { label: '', level: 50 }])}
-          renderItem={(it, i) => (
+          renderItem={(it: BarItem, i: number) => (
             <div className="item" key={i}>
               <div className="row">
                 <Field label="Label" value={it.label} onChange={(v) => {
@@ -236,7 +251,7 @@ function App() {
           title="Software"
           items={cv.software}
           onAdd={() => update(['software'], [...cv.software, { label: '', level: 50 }])}
-          renderItem={(it, i) => (
+          renderItem={(it: BarItem, i: number) => (
             <div className="item" key={i}>
               <div className="row">
                 <Field label="Label" value={it.label} onChange={(v) => {
@@ -266,7 +281,7 @@ function App() {
           title="Work History"
           items={cv.jobs}
           onAdd={() => update(['jobs'], [...cv.jobs, { dates: '', title: '', company: '', bullets: [''] }])}
-          renderItem={(job, i) => (
+          renderItem={(job: Job, i: number) => (
             <div className="item" key={i}>
               <div className="row">
                 <Field label="Dates" value={job.dates} onChange={(v) => {
@@ -312,7 +327,7 @@ function App() {
           title="Education"
           items={cv.education}
           onAdd={() => update(['education'], [...cv.education, { date: '', title: '', school: '', subs: [''] }])}
-          renderItem={(e, i) => (
+          renderItem={(e: EducationEntry, i: number) => (
             <div className="item" key={i}>
               <div className="row">
                 <Field label="Date" value={e.date} onChange={(v) => {
@@ -378,7 +393,7 @@ function App() {
   )
 }
 
-function previewCss() {
+function previewCss(): string {
   return `
   :root { --blue:#0f4b79; --border:#d8e0ea; --text:#1b1f23; --muted:#58616a; --white:#ffffff; }
   *{box-sizing:border-box}
@@ -424,7 +439,7 @@ function previewCss() {
   `
 }
 
-function renderPreview(data) {
+function renderPreview(data: CV): string {
   const sidebar = `
     <aside class="sidebar">
       <div class="identity">
@@ -494,7 +509,7 @@ function renderPreview(data) {
   `
 }
 
-function barHtml(label, level) {
+function barHtml(label: string, level: number): string {
   return `
     <div class="bar">
       <span class="bar-label">${escapeHtml(label)}</span>
@@ -505,8 +520,8 @@ function barHtml(label, level) {
   `
 }
 
-function escapeHtml(str) {
-  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]))
+function escapeHtml(str: string | number | undefined): string {
+  return String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[s] as string))
 }
 
 export default App

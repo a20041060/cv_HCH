@@ -1,6 +1,7 @@
 import React from 'react'
+import { CV } from '../data/cv'
 
-function Bar({ label, level }) {
+function Bar({ label, level }: { label: string; level: number }) {
   return (
     <div className="bar">
       <span className="bar-label">{label}</span>
@@ -11,7 +12,7 @@ function Bar({ label, level }) {
   )
 }
 
-function Contact({ items }) {
+function Contact({ items }: { items: CV['contact'] }) {
   return (
     <div className="sidebar-section">
       <div className="sidebar-title">Contact</div>
@@ -25,7 +26,7 @@ function Contact({ items }) {
   )
 }
 
-function Skills({ items }) {
+function Skills({ items }: { items: CV['skills'] }) {
   return (
     <div className="sidebar-section">
       <div className="sidebar-title">Skills</div>
@@ -36,7 +37,7 @@ function Skills({ items }) {
   )
 }
 
-function Software({ items }) {
+function Software({ items }: { items: CV['software'] }) {
   return (
     <div className="sidebar-section">
       <div className="sidebar-title">Software</div>
@@ -47,7 +48,7 @@ function Software({ items }) {
   )
 }
 
-function Sidebar({ data }) {
+function Sidebar({ data }: { data: CV }) {
   return (
     <aside className="sidebar">
       <div className="identity">

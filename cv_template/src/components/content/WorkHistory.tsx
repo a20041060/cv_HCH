@@ -1,7 +1,8 @@
 import React from 'react'
-import Job from './Job.jsx'
+import Job from './Job'
+import { CV } from '../../data/cv'
 
-function WorkHistory({ jobs }) {
+function WorkHistory({ jobs }: { jobs: CV['jobs'] }) {
   return (
     <section className="work-history">
       <h2 className="section-title">Work History</h2>
